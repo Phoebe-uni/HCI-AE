@@ -1,0 +1,24 @@
+{% extends 'UG_food/base.html' %}
+{% load staticfiles %}
+{% block title %}Add Recipe{% endblock %}
+{% block body_block %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-6">
+                <div class="card-body">
+                    <p class="card-text">
+                    <ul  class="list-group list-group-flush">
+                        {% for category in categories %}
+                            <li  class="list-group-item">
+                            <a href="{% url 'UG_food:show_category' category.slug %}">
+                                <span data-feather="chevron-right"></span>{{ category.name }}
+                            </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'UG_food/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        Unknown Category
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'UG_food:add_recipe' category.slug %}">Add Page</a> <br />
+    {% endif %}
+
+    {% if category %}
+        <h1 style="color: #C13C14;">{{ category.name }}</h1>
+		{% if recipes %}
+			{% for recipe in recipes %}
+			<div class="row no-gutters bg-light position-relative">
+				<div class="col-md-6 mb-md-0 p-md-4">
+					<img src="{{ MEDIA_URL }}{{ recipe.img }}" class="mr-3" alt="...">
+				</div>
+				<div class="col-md-6 position-static p-4 pl-md-0">
+					<h5 class="mt-0">
+						<a href="{% url 'UG_food:recipe' recipe.title %}">
+								{{ recipe.title.errors }}
+								{{ recipe.title }}
+						</a>
+					</h5>
+
+					<div>
+                        <label style="color: lightsalmon;">
+                            <span data-feather="user" color="lightsalmon"></span>
+                            <a href="{% url 'UG_food:profile' recipe.user.user.username %}">{{recipe.user.user.username}}</a>
+                        </label>
+                    </div>
+
+					<div>
+						<strong id="like_count_recipe">{{ recipe.likes }}</strong> likes
+						{% if user.is_authenticated %}
+						<button id="like_btn_recipe"
+							data-recipeid="{{recipe.id}}"
+							class="btn btn-primary btn-sm"
+							type="button">
+							<span data-feather="heart" color="pink"></span>
+							Like Recipe
+						</button>
+						{% endif %}
+					</div>
+
+				</div>
+			</div>
+
+
+			{% endfor %}
+		</ul>
+		{% endif %}
+    {% else %}
+        <strong>No recipes currently in category.</strong>
+    {% endif %}
+{% endblock %}

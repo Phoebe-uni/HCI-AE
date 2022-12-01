@@ -1,0 +1,88 @@
+{% extends 'UG_food/base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Recipe
+{% endblock %}
+
+{% block body_block %}
+    <div class="jumbotron p-4">
+        <div class="container">
+			<h1 class="jumbotron-heading" style="color: #C13C14;">
+				{{ recipe.title.errors }}
+				{{ recipe.title }}
+			</h1>
+        </div>
+    </div>
+
+	<div>
+		<label style="color: lightsalmon;">
+			<span data-feather="user" color="lightsalmon"></span>
+			<a href="{% url 'UG_food:profile' recipe.user.user.username %}">{{ recipe.user.user.username }}</a>
+		</label>
+	</div>
+
+	<div class="form-group">
+		<div class="container">
+			<img src="{{ MEDIA_URL }}{{ recipe.img }}" class="figure-img img-fluid" alt="PlaceHolder">
+			<div>
+			{{ recipe.text }}
+			</div>
+		</div>
+	</div>
+
+	<div>
+	<strong id="like_count_recipe">{{ recipe.likes }}</strong> likes
+	{% if user.is_authenticated %}
+	<button id="like_btn_recipe"
+		data-recipeid="{{recipe.id}}"
+		class="btn btn-primary btn-sm"
+		type="button">
+		<span data-feather="heart" color="pink"></span>
+		Like Recipe
+	</button>
+	{% endif %}
+	</div>
+
+    <div class = "form wide-form fade-in">
+		<h3>Comments</h3>
+		{% if request.user.is_authenticated %}
+			<form id='comment_form' method='post' action="{% url 'UG_food:recipe' recipe.title %}">
+				{% csrf_token %}
+				{{ form.as_p }}
+				</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+		{% else %}
+			<p>To write or like a comment please <a href="{% url 'auth_login' %}">log in</a> or <a href="{% url 'registration_register' %}">register</a></p>
+		{% endif %}
+		<hr>
+		<ul class="list-unstyled">
+			{% for comment in comments %}
+				<li class="media">
+					<a href="{% url 'UG_food:profile' comment.user.user.username %}"></a>
+					<div class="media-body">
+						<div class="comment-inline">
+							<h5 class="mt-10"><a href="{% url 'UG_food:profile' comment.user.user.username %}">{{comment.user.user.username}}</a></h5>
+							<p id="regPageText">{{comment.date}}</p>
+						</div>
+						<p>{{comment.text}}</p>
+						
+						<div>
+							<strong id="{{comment.id}}" class="like_count_comment">{{ comment.likes }}</strong> likes
+							{% if user.is_authenticated %}
+							<button data-commentid="{{comment.id}}"
+							    id="btn_{{comment.id}}"
+								class="like_btn_comment btn btn-primary btn-sm"
+								type="button">
+								<span data-feather="heart" color="pink"></span>
+								Like Comment
+							</button>
+							{% endif %}
+						</div>
+					</div>
+				</li>
+			<hr>
+			{% endfor %}
+		</ul>
+{% endblock %}

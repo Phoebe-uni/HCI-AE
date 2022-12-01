@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+
+    <title>
+        UG_Food  {% block title %}Here's your UG_Food!{% endblock %}
+    </title>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm bg-light" style="background-color: #0957EE;">
+                <a class="navbar-brand p-2" href="{% url 'UG_food:index' %}">UG_Food</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'UG_food:index' %}">Homepage</a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'UG_food:categories' %}">Categories</a></li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'UG_food:profile' user.username %}">My account</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next=/UG_food/">Logout</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Register</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+                <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">
+                    {% block body_block %}{% endblock %}
+
+                    <!-- FOOTER -->
+                    <footer>
+                        <p class="float-right"><a href="#">Back to top</a></p>
+                    </footer>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

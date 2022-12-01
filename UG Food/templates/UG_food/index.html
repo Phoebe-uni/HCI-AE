@@ -1,0 +1,29 @@
+{% extends 'UG_food/base.html' %}
+{% load staticfiles %}
+{% block title %}
+    Recent Recipes
+{% endblock %}
+
+{% block body_block %}
+    {% for recipe in recipes %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ MEDIA_URL }}{{ recipe.img }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h2 class="card-title">
+                <a href="{% url 'UG_food:recipe' recipe.title %}">
+                {{ recipe.title.errors }}
+                {{ recipe.title }}
+                </a>
+            </h2>
+            <div>
+                <label style="color: lightsalmon;">
+                    <span data-feather="user" color="lightsalmon"></span>
+                    <a href="{% url 'UG_food:profile' recipe.user.user %}">{{recipe.user.user.username}}</a>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+
+{% endblock %}
