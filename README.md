@@ -1,6 +1,5 @@
-# HCI-AE
-A web application that enables users to connect with each other to exchange recipes and monitor calories, helping them to track their daily calorie intake and learn to share recipes to improve their lives.
-
+# HCI-AE-UofG Food
+UofG Food is a website for students and staff at the University of Glasgow to monitor their calories intake and to communicate and learn about healthy diets. The site is based on a live update of the University canteen's daily menu, allowing users to like and rate dishes. Staff at the University canteen then adapt and modify the dishes based on user feedback.
 ### Setting up
 To ensure that this web application works properly, the following steps need to be followed to set up the environment.
 Clone the repository and accsess the proper directory.
