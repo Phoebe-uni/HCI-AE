@@ -4,7 +4,7 @@ UofG Food is a website for students and staff at the University of Glasgow to mo
 To ensure that this web application works properly, the following steps need to be followed to set up the environment.
 Clone the repository and accsess the proper directory.
 ```
-$ git clone -----
+$ git clone https://github.com/Phoebe-uni/HCI-AE.git
 $ cd -----
 ```
 
